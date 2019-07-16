@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Dealing with state</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="container"></div>
+    <script type="text/babel">
+    const destination = document.querySelector("#container");
+    
+    class LightningCounter extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                strikes: 0
+            };
+
+            this.timerTick = this.timerTick.bind(this);
+        }
+
+        timerTick() {
+
+            this.setState({
+                strikes: this.state.strikes + 100
+            });           
+
+            /* One might run into issues with this code; React might batch the calls for performance 
+            reasons. This could lead to a situation in which the this.state.strike value gets out of 
+            sync with reality. To be absolutely sure that the values are updated one after the other, 
+            one might want to use the following code instead:
+            
+            this.setState( (prevState) => {
+                return {
+                    strikes: prevState.strikes + 100
+                };
+            });
+            
+            */
+        }
+
+        componentDidMount() {
+            setInterval(this.timerTick, 1000);
+        } 
+        // setInterval every 1000 ms = 1 sec.
+        render() {
+            const counterStyle ={
+                color: "#66FFFF",
+                fontSize: 50
+            }
+
+            const count = this.state.strikes.toLocaleString();
+            // toLocaleString: 'ne lustige Formatierungsfunktion, die das schräge anglo-amerikanische 
+            // Komma ab 4 Stellen liefert.
+                      
+            return(
+                <h1 style={counterStyle}>{count}</h1>
+            );
+        }
+    }
+
+    class LightningCounterDisplay extends React.Component {
+
+        render() {
+
+            const commonStyle = {
+                margin: 0,
+                padding: 0
+            }
+
+            const divStyle = {
+            width: 250,
+            textAlign: "center",
+            backgroundColor: "#020202",
+            padding: 40,
+            fontFamily: "sans-serif",
+            color: "#999999",
+            borderRadius: 10
+            }   
+
+            const textStyles = {
+                emphasis: {
+                    fontSize: 38,
+                    ...commonStyle
+                },
+                smallEmphasis: {
+                    ...commonStyle
+                },
+                small: {
+                    fontSize: 17,
+                    opacity: 0.8,
+                    ...commonStyle
+                }
+            }
+
+            return(
+                <div style={divStyle} >
+                    <LightningCounter />
+                    <h2 style={textStyles.smallEmphasis}>LIGHTNING STRIKES</h2>
+                    <h2 style={textStyles.Emphasis}>WORLDWIDE</h2>
+                    <p style={textStyles.small}>(since you loaded this example)</p>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <LightningCounterDisplay />,
+        destination
+    );
+    </script>
+</body>
+</html>

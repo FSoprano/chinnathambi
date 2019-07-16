@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>From Data to UI</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: "#FFF";
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+    const destination = document.querySelector("#container");
+
+    class Circle extends React.Component {
+        render() {
+            const circleStyle = {
+                padding: 10,
+                margin: 20,
+                display: "inline-block",
+                backgroundColor: this.props.bgColor,
+                borderRadius: "50%",
+                width: 100,
+                height: 100
+            }
+            return (
+            <div style={circleStyle} ></div>
+            );
+        }
+    }
+    
+
+    // One step further: create a function that will show a circle:
+
+    function showCircle() {
+        const colors = ["#393841", "#E94F37", "#1C89BF", "#A1D363"];
+        const ran = Math.floor(Math.random() * colors.length);
+        // Return a circle with a randomly chosen color:
+        return <Circle bgColor={colors[ran]} />;
+    }
+    
+
+    ReactDOM.render(
+        <div>
+            {/* Note from the author: "As long as the expression evaluates to JSX, 
+            you can put almost anything inside the curly braces!" 
+            A function call also returns valid JSX!*/}
+            {showCircle()}
+            {showCircle()}
+            {showCircle()}
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
