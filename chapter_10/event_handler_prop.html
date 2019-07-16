@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>From Data to UI</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: "#FFF";
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+    const destination = document.querySelector("#container");
+
+    class Counter extends React.Component {
+        render() {
+            const textStyle = {
+                fontSize: 72,
+                color: '#333',
+                fontWeight: "bold",
+                fontFamily: "sans-serif"
+            }
+            return (
+            <div style={textStyle} >{this.props.display}</div>
+            );
+        }
+    }
+
+    class PlusButton extends React.Component {
+        render() {
+            const buttonStyle = {
+                fontSize: "1em" ,
+                fontWeight: "bold",
+                fontFamily: "sans-serif",
+                color: "#333",
+                lineHeight: "3px",
+                width: 30,
+                height: 30
+            };
+            return(
+                <button onClick = {this.props.clickHandler} style = {buttonStyle}>
+                +
+                </button>
+            );
+        }
+    }
+  
+    class CounterParent extends React.Component {
+        constructor(props) {
+            super(props);
+
+            this.state = {
+                count: 0,
+            };
+
+            this.increase = this.increase.bind(this);
+
+            /* Keep in mind: In React, 'this' does not refer to the element that fired an event. In React, 
+        'this' is undefined by default. This is why we need to bind 'this' to something inside the constructor. 
+        In this example, 'this' refers to the CounterParent component, and the increase(e) event handler is 
+        bound to 'this' component. */
+        }
+
+        
+
+        increase(e) {
+            let currentCount = this.state.count;
+
+            if (e.shiftKey) {
+                currentCount +=  10;
+            } else {
+                currentCount += 1;
+            }
+            this.setState({
+                count: currentCount
+            });
+        }
+        render() {
+            const backgroundStyle = {
+                padding: 50,
+                margin: 20,
+                textAlign: "center",
+                backgroundColor: "#FFC53A",
+                borderRadius: 10,
+                width: 250,
+                height: 100
+            };
+
+            // const buttonStyle moved to PlusButton component.
+            
+            return (
+            <div style={backgroundStyle} >
+                <Counter display={this.state.count} />
+                {/* Problem: You cannot directly listen to events on components. In contrast to the previous example, 
+                the button element has been replaced with an instance of the PlusButton component. This is why the following code 
+                does not work as one would expect: 
+                <PlusButton onClick={this.increase} style={buttonStyle} >+</Plusbutton> 
+                
+                As a workaround, we define an event handler property, and set the increase event handler as the value of this 
+                property:
+                */}
+
+                <PlusButton clickHandler = {this.increase} />
+
+            </div>
+            );
+        }
+    }
+    ReactDOM.render(
+        <div>
+            <CounterParent />
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
