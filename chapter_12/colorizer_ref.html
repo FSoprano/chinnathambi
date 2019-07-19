@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>The Colorizer!</title>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<style>
+    #container {
+      padding: 50px;
+      background-color: #FFF;
+    }
+
+    .colorSquare {
+      box-shadow: 0px 0px 25px 0px #333;
+      width: 242px;
+      height: 242px;
+      margin-bottom: 15px;
+    }
+
+    .colorArea input {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #CCC;
+    }
+
+    .colorArea button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      background-color: #666;
+      color: #FFF;
+      border: 2px solid #666;
+    }
+
+    .colorArea button:hover {
+      background-color: #111;
+      border-color: #111;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+
+    var destination = document.querySelector("#container");
+
+    class Colorizer extends React.Component {
+      constructor(props, context) {
+	  	  super(props, context);
+
+        this.state = {
+          color: "",
+          bgColor: "white"
+        }
+
+        this.colorValue = this.colorValue.bind(this);
+        this.setNewColor = this.setNewColor.bind(this);
+      }
+
+      colorValue(e) {
+        this.setState({color: e.target.value});
+      }
+      
+      setNewColor(e){
+        this.setState({
+          bgColor: this.state.color
+        });
+
+        // The stuff that follows belongs to the <input> ref below:
+
+        this._input.focus(); /* Sets the focus to _input property of the component, which 
+        we set to the <input> element by use of a ref */
+        this._input.value = ""; // This clears the content from the input text field.
+
+        e.preventDefault();
+      }
+
+      render() {
+        var squareStyle = {
+          backgroundColor: this.state.bgColor
+        };
+
+        var self = this;
+
+        return (
+          <div className="colorArea">
+            <div style={squareStyle} className="colorSquare"></div>
+            {/* The aim is to access the <input> DOM element directly, as this is easier to do in 
+            Javascript than in React. What we want to achieve is that once a color has been entered 
+            and submitted, the content of the text field is cleared, and the focus automatically jumps 
+            back to the text field. This makes it easier for the user to change the color again; she does 
+            not have to place the cursor in the text field, then erase the contents, then type a new 
+            color name and click 'go' */}
+            <form onSubmit={this.setNewColor}>
+                {/* Using refs, we can access DOM elements directly from within React components. Access 
+                happens when the component mounts. */}
+              <input onChange={this.colorValue} 
+                    // And here comes a ref:
+                    ref = {
+                        /* Using self = this, we make sure that we create the custom property 
+                        on the component rather than on the function below. The ref sets 
+                        the _input, a custom property of the component to the value 'el', 
+                        that is, the current <input> element. */ 
+                        function(el) {
+                            self._input = el;
+                        }
+                        /* The counterpart to this code has to be set on the setNewColor function 
+                        because this function gets called when a color change request is 
+                        submitted. */
+                    }
+                     placeholder="Enter a color value"></input>
+              <button type="submit">go</button>
+            </form>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(
+      <div>
+        <Colorizer/>
+      </div>,
+      destination
+    );
+  </script>
+</body>
+</html>
