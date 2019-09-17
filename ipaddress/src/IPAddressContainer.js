@@ -22,7 +22,7 @@ class IPAddressContainer extends Component {
         Explanation from aislyn666@forum.kirupa.com: 
         "I am having the same problem, but just from localhost. I happen to have tried this in a virtual machine and checked 
         from the host system as well using the IP my VM has in the shared network, and with that the code works. 
-        y guess is that somehow the sender of the request to ipinfo.io gets to be “localhost” if you use 
+        My guess is that somehow the sender of the request to ipinfo.io gets to be “localhost” if you use 
         the app as probably most people do when just trying out, and “localhost” most probably has way more than 1000 
         requests/month to them (see https://ipinfo.io/pricing) and therefore we get blocked.""       
         
