@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-// import FlipMove from "react-flip-move";
-// FlipMove does not work; Compile error;
+import FlipMove from "react-flip-move";
 
 
 class TodoItems extends Component {
@@ -27,9 +26,10 @@ class TodoItems extends Component {
         console.log(lItems);
         return (
             <ul className="theList">
-                {/* <FlipMove duration={250} easing="ease-out"> */}
+                {/* FlipMove: extra animation package. Addded with yarn. */}
+                <FlipMove duration={500} easing="ease-out">
                 {lItems}
-                {/* </FlipMove> */}
+                </FlipMove>
             </ul>
         );
     }
