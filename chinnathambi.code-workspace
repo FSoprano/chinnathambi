@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "chapter_3"
+		},
+		{
+			"path": "chapter_4"
+		},
+		{
+			"path": "chapter_5"
+		},
+		{
+			"path": "chapter_6"
+		},
+		{
+			"path": "chapter_7"
+		},
+		{
+			"path": "chapter_8"
+		},
+		{
+			"path": "chapter_9"
+		},
+		{
+			"path": "chapter_10"
+		},
+		{
+			"path": "chapter_11"
+		},
+		{
+			"path": "chapter_12"
+		},
+		{
+			"path": "helloworld"
+		},
+		{
+			"path": "ipaddress"
+		},
+		{
+			"path": "todolist"
+		}
+	],
+	"settings": {}
+}

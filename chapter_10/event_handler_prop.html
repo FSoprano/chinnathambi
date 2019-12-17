@@ -13,6 +13,15 @@
         }
     </style>
 </head>
+<!-- This one here contains the workaround for a problem: You cannot listen directly to events on React components. That is, you can add event 
+    handlers to HTML elements, but not to new elements created by React components. That is, you cannot say something like:
+    <PlusButton onClick = {eventHandlerFunction} /> 
+    The workaround is to add a property to the React 
+component element inside the corresponding render function. You then set the event handler (function) as the value of this property. 
+So it has to be something like: 
+<PlusButton  clickHandler = {eventHandlerFunction} /> (React element)
+<button onClick = {this.props.clickHandler} > </button> (HTML element)
+-->
 <body>
     <div id="container"></div>
 
@@ -98,7 +107,7 @@
             return (
             <div style={backgroundStyle} >
                 <Counter display={this.state.count} />
-                {/* Problem: You cannot directly listen to events on components. In contrast to the previous example, 
+                {/* Problem: You cannot directly listen to events on components. In contrast to the previous example in basic_event.html, 
                 the button element has been replaced with an instance of the PlusButton component. This is why the following code 
                 does not work as one would expect: 
                 <PlusButton onClick={this.increase} style={buttonStyle} >+</Plusbutton> 

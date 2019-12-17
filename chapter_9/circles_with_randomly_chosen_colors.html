@@ -31,10 +31,26 @@
                 height: 100
             }
             return (
-            <div style={circleStyle} ></div>
+            <div style={circleStyle} ><DateComponent /></div>
             );
         }
     }
+
+ class DateComponent extends React.Component {
+  render() {
+    
+    const dateStyle = {
+        padding: 40,
+        display: "flex",
+        color: "white",
+        fontFamily: "sans-serif",
+        justifyContent: "center"
+    }
+    return (
+      <div style={dateStyle}>13/Jan/2020</div>
+    );
+  }
+}
     
 
     // One step further: create a function that will show a circle:
