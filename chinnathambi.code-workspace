@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "todolist"
+		},
+		{
+			"path": "slidingmenu"
 		}
 	],
 	"settings": {}
