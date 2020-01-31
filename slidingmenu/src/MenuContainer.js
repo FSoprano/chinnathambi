@@ -22,6 +22,7 @@ class MenuContainer extends Component {
         e.stopPropagation();
     }
     render() {
+        console.log("Rendering: MenuContainer");
         return (
             <div>
             <MenuButton handleMouseDown={this.handleMouseDown} />
