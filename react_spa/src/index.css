@@ -1,0 +1,48 @@
+body {
+    background-color: #FFCC00;
+    padding: 20px;
+    margin: 0;
+}
+
+h1, h2, p, ul, li {
+    font-family: sans-serif;
+}
+
+ul.header li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+}
+
+ul.header {
+    background-color: #111;
+    padding: 0;
+}
+
+ul.header li a {
+    color: aliceblue;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 20px;
+    display: inline-block;
+}
+
+.content {
+    background-color: aliceblue;
+    padding: 20px;
+}
+
+.content h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.content li {
+    margin-bottom: 10px;
+}
+
+.active {
+    /* Hint class="active" is set automatically when a link is clicked in React. This is 
+    merely the rule that sets the color. */
+    background-color: #0099FF;
+}
