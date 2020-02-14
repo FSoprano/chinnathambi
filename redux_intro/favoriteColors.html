@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Favourite Colours!</title>
+        <!-- Tap the Redux library: -->
         <script src="https://unpkg.com/redux@latest/dist/redux.js"></script>
     </head>
     <body>
@@ -16,7 +17,6 @@
                     color: value
                 };
             }
-
             function removeColor(value) {
                 return {
                     type: "REMOVE",
@@ -28,7 +28,6 @@
                 if (state === undefined) {
                     state = [];
                 }
-
                 if (action.type === "ADD") {
                     return state.concat(action.color);
                 } else if (action.type === "REMOVE") {
