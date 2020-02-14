@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Favourite Colours!</title>
+        <script src="https://unpkg.com/redux@latest/dist/redux.js"></script>
+    </head>
+    <body>
+        <script>
+            // Redux allows us to store and maintain state in one place (called a store)
+            // Action creators:
+            function addColor(value) {
+                return {
+                    type: "ADD",
+                    color: value
+                };
+            }
+
+            function removeColor(value) {
+                return {
+                    type: "REMOVE",
+                    color: value
+                };
+            }
+            // Reducer:
+            function favoriteColors(state, action) {
+                if (state === undefined) {
+                    state = [];
+                }
+
+                if (action.type === "ADD") {
+                    return state.concat(action.color);
+                } else if (action.type === "REMOVE") {
+                    return state.filter(function(item) {
+                        return item !== action.color;
+                    });
+                } else {
+                    return state;
+                }
+            }
+            // Store:
+            var store = Redux.createStore(favoriteColors);
+            store.subscribe(render);
+            // Displays the latest state of the array on the console 
+            // whenever store.dispatch is called (in this example, 7 times)
+            function render() {
+                console.log(store.getState());
+            } 
+            store.dispatch(addColor("green"));
+            store.dispatch(addColor("blue"));
+            store.dispatch(addColor("yellow"));
+            store.dispatch(addColor("red"));
+            store.dispatch(addColor("gray"));
+            store.dispatch(addColor("orange"));
+            store.dispatch(removeColor("gray"));
+        </script>
+    </body>
+</html>
